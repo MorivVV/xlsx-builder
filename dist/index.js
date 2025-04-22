@@ -1,37 +1,54 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const fast_xml_parser_1 = require("fast-xml-parser");
-const adm_zip_1 = __importDefault(require("adm-zip"));
-var empty_xlsx = new adm_zip_1.default("./template/empty.xlsx");
-var zipEntries = empty_xlsx.getEntries();
-const optionsParse = {
-    ignoreAttributes: false,
-};
-const optionsBuild = {
-    ignoreAttributes: false,
-};
-const fastXML = new fast_xml_parser_1.XMLParser(optionsBuild);
-const builder = new fast_xml_parser_1.XMLBuilder(optionsBuild);
-const new_xlsx = new adm_zip_1.default();
-zipEntries.forEach(function (zipEntry) {
-    console.log(zipEntry.entryName); // outputs zip entries information
-    console.log(zipEntry.getData().toString("utf8"));
-    const a = fastXML.parse(zipEntry.getData().toString("utf8"));
-    if (zipEntry.entryName.includes("xl/worksheets/sheet1.xml")) {
-        a.worksheet.sheetData = {
-            row: {
-                "@_r": "1",
-                "@_spans": "1:1",
-                "@_x14ac:dyDescent": "0.25",
-                c: { "@_r": "A1", v: 1234 },
-            },
-        };
-    }
-    console.log(a);
-    console.log(builder.build(a));
-    new_xlsx.addFile(zipEntry.entryName, Buffer.from(builder.build(a)), "");
-});
-new_xlsx.writeZip("test.xlsx");
+// import {
+//   X2jOptions,
+//   XMLBuilder,
+//   XmlBuilderOptions,
+//   XMLParser,
+// } from "fast-xml-parser";
+// import AdmZip from "adm-zip";
+const BuilderXcell_1 = require("./classes/BuilderXcell");
+// var empty_xlsx = new AdmZip("./template/cron_script.xlsx");
+// var zipEntries = empty_xlsx.getEntries();
+// const optionsParse: X2jOptions = {
+//   ignoreAttributes: false,
+// };
+// const optionsBuild: XmlBuilderOptions = {
+//   ignoreAttributes: false,
+// };
+// const fastXML = new XMLParser(optionsBuild);
+// const builder = new XMLBuilder(optionsBuild);
+// const new_xlsx = new AdmZip();
+// const sharedString = {
+//   "?xml": { "@_version": "1.0", "@_encoding": "UTF-8", "@_standalone": "yes" },
+//   sst: {
+//     si: [{ t: "строка которая пойдет в shARED" }],
+//     "@_xmlns": "http://schemas.openxmlformats.org/spreadsheetml/2006/main",
+//     "@_count": "1",
+//     "@_uniqueCount": "1",
+//   },
+// };
+// const parseToObj = zipEntries.map((zipEntry) => {
+//   console.log(zipEntry.entryName); // outputs zip entries information
+//   const read = zipEntry.getData().toString("utf8");
+//   const a = fastXML.parse(read);
+//   const obj = {
+//     name: zipEntry.entryName,
+//     data: a,
+//   };
+//   console.log(JSON.stringify(a));
+//   console.log(builder.build(a));
+//   //   new_xlsx.addFile(zipEntry.entryName, Buffer.from(builder.build(a)), "");
+//   return obj;
+// });
+// parseToObj.forEach((e) => {
+//   console.log(e.name);
+//   new_xlsx.addFile(e.name, Buffer.from(builder.build(e.data)), "");
+// });
+// new_xlsx.writeZip("test.xlsx");
+const ax = new BuilderXcell_1.BuilderXcell();
+ax.addCell(0, 1, "Привет");
+ax.addCell(0, 2, "Как дела");
+ax.addCell(0, 3, "Ну и что");
+ax.addCell(1, 2, "Ну и что22");
+ax.saveFile("test34.xlsx");
