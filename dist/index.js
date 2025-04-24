@@ -51,4 +51,6 @@ ax.addCell(0, 1, "Привет");
 ax.addCell(0, 2, "Как дела");
 ax.addCell(0, 3, "Ну и что");
 ax.addCell(1, 2, "Ну и что22");
+ax.addCell(1, 3, "Ну и что22");
+ax.addCell(1, 4, "Как дела");
 ax.saveFile("test34.xlsx");

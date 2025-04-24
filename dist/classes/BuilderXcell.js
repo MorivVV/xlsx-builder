@@ -57,7 +57,7 @@ class BuilderXcell {
         };
     }
     addSharedString(text) {
-        const space = typeof text === "string" && text.includes(" ");
+        const space = typeof text === "string" && (text.startsWith(" ") || text.endsWith(" "));
         if (space) {
             const find = this.si.findIndex((s) => typeof s.t === "object" && s.t["#text"] === text);
             if (find >= 0) {
@@ -79,16 +79,28 @@ class BuilderXcell {
             }
         }
     }
-    addCell(row, col, text) {
-        const sheet = this.parseToObj.find((e) => e.name === "xl/worksheets/sheet1.xml");
+    addSheet(name) { }
+    getSheet(name = "xl/worksheets/sheet1.xml") {
+        const sheet = this.parseToObj.find((e) => e.name === name);
         if (sheet) {
-            console.log(sheet.data.worksheet);
             if (!sheet.data.worksheet.sheetData) {
                 sheet.data.worksheet.sheetData = { row: [] };
             }
-            const frow = sheet.data.worksheet.sheetData.row.find((e) => e["@_r"] === String(row + 1));
+            return sheet.data.worksheet;
+        }
+        else {
+            return this.addSheet(name);
+        }
+    }
+    addRow(row) { }
+    getRow(row) { }
+    addCell(row, col, text) {
+        const sheet = this.getSheet("xl/worksheets/sheet1.xml");
+        if (sheet) {
+            console.log(sheet);
+            const frow = sheet.sheetData.row.find((e) => e["@_r"] === String(row + 1));
             if (!frow) {
-                sheet.data.worksheet.sheetData.row.push({
+                sheet.sheetData.row.push({
                     "@_r": String(row + 1),
                     c: [
                         {
@@ -99,12 +111,14 @@ class BuilderXcell {
                     ],
                 });
             }
-            console.log(sheet.data.worksheet.sheetData);
-            sheet.data.worksheet.sheetData.row[row].c.push({
-                "@_r": String.fromCharCode(65 + col) + String(row + 1),
-                "@_t": "s",
-                v: this.addSharedString(text),
-            });
+            else {
+                sheet.sheetData.row[row].c.push({
+                    "@_r": String.fromCharCode(65 + col) + String(row + 1),
+                    "@_t": "s",
+                    v: this.addSharedString(text),
+                });
+            }
+            console.log(sheet.sheetData);
         }
     }
 }
