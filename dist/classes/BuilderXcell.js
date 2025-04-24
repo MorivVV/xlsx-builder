@@ -92,34 +92,38 @@ class BuilderXcell {
             return this.addSheet(name);
         }
     }
-    addRow(row) { }
-    getRow(row) { }
-    addCell(row, col, text) {
+    /**Добавляем пустую строку */
+    addRow(sheet, row) {
+        const a = sheet.push({
+            "@_r": String(row + 1),
+            c: [],
+        });
+        console.log(sheet, a);
+        return sheet[a - 1];
+    }
+    /**Получаем строку или создаем пустую */
+    getRow(row) {
         const sheet = this.getSheet("xl/worksheets/sheet1.xml");
         if (sheet) {
             console.log(sheet);
             const frow = sheet.sheetData.row.find((e) => e["@_r"] === String(row + 1));
-            if (!frow) {
-                sheet.sheetData.row.push({
-                    "@_r": String(row + 1),
-                    c: [
-                        {
-                            "@_r": String.fromCharCode(65 + col) + String(row + 1),
-                            "@_t": "s",
-                            v: this.addSharedString(text),
-                        },
-                    ],
-                });
+            if (frow) {
+                return frow;
             }
             else {
-                sheet.sheetData.row[row].c.push({
-                    "@_r": String.fromCharCode(65 + col) + String(row + 1),
-                    "@_t": "s",
-                    v: this.addSharedString(text),
-                });
+                return this.addRow(sheet.sheetData.row, row);
             }
-            console.log(sheet.sheetData);
         }
+    }
+    addCell(row, col, text) {
+        const frow = this.getRow(row);
+        console.log("line", 134, frow);
+        const cellName = String.fromCharCode(65 + col) + String(row + 1);
+        frow.c.push({
+            "@_r": cellName,
+            "@_t": "s",
+            v: this.addSharedString(text),
+        });
     }
 }
 exports.BuilderXcell = BuilderXcell;

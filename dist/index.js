@@ -1,56 +1,536 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-// import {
-//   X2jOptions,
-//   XMLBuilder,
-//   XmlBuilderOptions,
-//   XMLParser,
-// } from "fast-xml-parser";
-// import AdmZip from "adm-zip";
 const BuilderXcell_1 = require("./classes/BuilderXcell");
-// var empty_xlsx = new AdmZip("./template/cron_script.xlsx");
-// var zipEntries = empty_xlsx.getEntries();
-// const optionsParse: X2jOptions = {
-//   ignoreAttributes: false,
-// };
-// const optionsBuild: XmlBuilderOptions = {
-//   ignoreAttributes: false,
-// };
-// const fastXML = new XMLParser(optionsBuild);
-// const builder = new XMLBuilder(optionsBuild);
-// const new_xlsx = new AdmZip();
-// const sharedString = {
-//   "?xml": { "@_version": "1.0", "@_encoding": "UTF-8", "@_standalone": "yes" },
-//   sst: {
-//     si: [{ t: "строка которая пойдет в shARED" }],
-//     "@_xmlns": "http://schemas.openxmlformats.org/spreadsheetml/2006/main",
-//     "@_count": "1",
-//     "@_uniqueCount": "1",
-//   },
-// };
-// const parseToObj = zipEntries.map((zipEntry) => {
-//   console.log(zipEntry.entryName); // outputs zip entries information
-//   const read = zipEntry.getData().toString("utf8");
-//   const a = fastXML.parse(read);
-//   const obj = {
-//     name: zipEntry.entryName,
-//     data: a,
-//   };
-//   console.log(JSON.stringify(a));
-//   console.log(builder.build(a));
-//   //   new_xlsx.addFile(zipEntry.entryName, Buffer.from(builder.build(a)), "");
-//   return obj;
-// });
-// parseToObj.forEach((e) => {
-//   console.log(e.name);
-//   new_xlsx.addFile(e.name, Buffer.from(builder.build(e.data)), "");
-// });
-// new_xlsx.writeZip("test.xlsx");
+const json = [
+    {
+        tablename: "ab_emp_info",
+        tableowner: "postgres",
+        tablespace: null,
+        hasindexes: true,
+        hasrules: false,
+        hastriggers: false,
+    },
+    {
+        tablename: "browser_list",
+        tableowner: "postgres",
+        tablespace: null,
+        hasindexes: true,
+        hasrules: false,
+        hastriggers: false,
+    },
+    {
+        tablename: "bz_audit",
+        tableowner: "postgres",
+        tablespace: null,
+        hasindexes: true,
+        hasrules: false,
+        hastriggers: false,
+    },
+    {
+        tablename: "bz_auto_systems",
+        tableowner: "postgres",
+        tablespace: null,
+        hasindexes: true,
+        hasrules: false,
+        hastriggers: true,
+    },
+    {
+        tablename: "bz_contact_matrix",
+        tableowner: "postgres",
+        tablespace: null,
+        hasindexes: true,
+        hasrules: false,
+        hastriggers: false,
+    },
+    {
+        tablename: "bz_favorites_post",
+        tableowner: "postgres",
+        tablespace: null,
+        hasindexes: true,
+        hasrules: false,
+        hastriggers: true,
+    },
+    {
+        tablename: "bz_group_register",
+        tableowner: "postgres",
+        tablespace: null,
+        hasindexes: true,
+        hasrules: false,
+        hastriggers: false,
+    },
+    {
+        tablename: "bz_ip_addres",
+        tableowner: "postgres",
+        tablespace: null,
+        hasindexes: true,
+        hasrules: false,
+        hastriggers: true,
+    },
+    {
+        tablename: "bz_post",
+        tableowner: "postgres",
+        tablespace: null,
+        hasindexes: true,
+        hasrules: false,
+        hastriggers: true,
+    },
+    {
+        tablename: "bz_post_attach",
+        tableowner: "postgres",
+        tablespace: null,
+        hasindexes: true,
+        hasrules: false,
+        hastriggers: true,
+    },
+    {
+        tablename: "bz_post_terms",
+        tableowner: "postgres",
+        tablespace: null,
+        hasindexes: true,
+        hasrules: false,
+        hastriggers: true,
+    },
+    {
+        tablename: "bz_postmeta",
+        tableowner: "postgres",
+        tablespace: null,
+        hasindexes: true,
+        hasrules: false,
+        hastriggers: true,
+    },
+    {
+        tablename: "bz_send_mails",
+        tableowner: "postgres",
+        tablespace: null,
+        hasindexes: true,
+        hasrules: false,
+        hastriggers: true,
+    },
+    {
+        tablename: "bz_server_info",
+        tableowner: "postgres",
+        tablespace: null,
+        hasindexes: true,
+        hasrules: false,
+        hastriggers: true,
+    },
+    {
+        tablename: "bz_user_group",
+        tableowner: "postgres",
+        tablespace: null,
+        hasindexes: true,
+        hasrules: false,
+        hastriggers: false,
+    },
+    {
+        tablename: "bz_user_ip",
+        tableowner: "postgres",
+        tablespace: null,
+        hasindexes: true,
+        hasrules: false,
+        hastriggers: true,
+    },
+    {
+        tablename: "bz_user_tokens",
+        tableowner: "postgres",
+        tablespace: null,
+        hasindexes: true,
+        hasrules: false,
+        hastriggers: true,
+    },
+    {
+        tablename: "bz_users",
+        tableowner: "postgres",
+        tablespace: null,
+        hasindexes: true,
+        hasrules: false,
+        hastriggers: true,
+    },
+    {
+        tablename: "bz_users_params",
+        tableowner: "postgres",
+        tablespace: null,
+        hasindexes: true,
+        hasrules: false,
+        hastriggers: true,
+    },
+    {
+        tablename: "bz_version",
+        tableowner: "postgres",
+        tablespace: null,
+        hasindexes: true,
+        hasrules: false,
+        hastriggers: false,
+    },
+    {
+        tablename: "cron_jobs",
+        tableowner: "postgres",
+        tablespace: null,
+        hasindexes: true,
+        hasrules: false,
+        hastriggers: true,
+    },
+    {
+        tablename: "cron_jobs_audit",
+        tableowner: "postgres",
+        tablespace: null,
+        hasindexes: true,
+        hasrules: false,
+        hastriggers: true,
+    },
+    {
+        tablename: "cron_script_params",
+        tableowner: "postgres",
+        tablespace: null,
+        hasindexes: true,
+        hasrules: false,
+        hastriggers: true,
+    },
+    {
+        tablename: "cron_scripts",
+        tableowner: "postgres",
+        tablespace: null,
+        hasindexes: true,
+        hasrules: false,
+        hastriggers: true,
+    },
+    {
+        tablename: "dezh_book",
+        tableowner: "postgres",
+        tablespace: null,
+        hasindexes: true,
+        hasrules: false,
+        hastriggers: false,
+    },
+    {
+        tablename: "dezh_reports",
+        tableowner: "postgres",
+        tablespace: null,
+        hasindexes: true,
+        hasrules: false,
+        hastriggers: true,
+    },
+    {
+        tablename: "eks_dezh",
+        tableowner: "postgres",
+        tablespace: null,
+        hasindexes: true,
+        hasrules: false,
+        hastriggers: true,
+    },
+    {
+        tablename: "emails",
+        tableowner: "postgres",
+        tablespace: null,
+        hasindexes: true,
+        hasrules: false,
+        hastriggers: true,
+    },
+    {
+        tablename: "global_url_list",
+        tableowner: "postgres",
+        tablespace: null,
+        hasindexes: true,
+        hasrules: false,
+        hastriggers: false,
+    },
+    {
+        tablename: "jira_issues",
+        tableowner: "postgres",
+        tablespace: null,
+        hasindexes: true,
+        hasrules: false,
+        hastriggers: false,
+    },
+    {
+        tablename: "jira_projects",
+        tableowner: "postgres",
+        tablespace: null,
+        hasindexes: true,
+        hasrules: false,
+        hastriggers: false,
+    },
+    {
+        tablename: "mail_groups",
+        tableowner: "postgres",
+        tablespace: null,
+        hasindexes: true,
+        hasrules: false,
+        hastriggers: true,
+    },
+    {
+        tablename: "mail_list",
+        tableowner: "postgres",
+        tablespace: null,
+        hasindexes: true,
+        hasrules: false,
+        hastriggers: true,
+    },
+    {
+        tablename: "partition_access",
+        tableowner: "postgres",
+        tablespace: null,
+        hasindexes: true,
+        hasrules: false,
+        hastriggers: true,
+    },
+    {
+        tablename: "pg_types_fields",
+        tableowner: "postgres",
+        tablespace: null,
+        hasindexes: true,
+        hasrules: false,
+        hastriggers: false,
+    },
+    {
+        tablename: "place",
+        tableowner: "postgres",
+        tablespace: null,
+        hasindexes: true,
+        hasrules: false,
+        hastriggers: true,
+    },
+    {
+        tablename: "ppr_proccess",
+        tableowner: "postgres",
+        tablespace: null,
+        hasindexes: true,
+        hasrules: false,
+        hastriggers: true,
+    },
+    {
+        tablename: "ppr_task",
+        tableowner: "postgres",
+        tablespace: null,
+        hasindexes: true,
+        hasrules: false,
+        hastriggers: true,
+    },
+    {
+        tablename: "ppr_task_status",
+        tableowner: "postgres",
+        tablespace: null,
+        hasindexes: true,
+        hasrules: false,
+        hastriggers: true,
+    },
+    {
+        tablename: "ppr_type",
+        tableowner: "postgres",
+        tablespace: null,
+        hasindexes: true,
+        hasrules: false,
+        hastriggers: false,
+    },
+    {
+        tablename: "rights_elements",
+        tableowner: "postgres",
+        tablespace: null,
+        hasindexes: true,
+        hasrules: false,
+        hastriggers: true,
+    },
+    {
+        tablename: "rights_table",
+        tableowner: "postgres",
+        tablespace: null,
+        hasindexes: true,
+        hasrules: false,
+        hastriggers: true,
+    },
+    {
+        tablename: "roles",
+        tableowner: "postgres",
+        tablespace: null,
+        hasindexes: true,
+        hasrules: false,
+        hastriggers: true,
+    },
+    {
+        tablename: "roles_access",
+        tableowner: "postgres",
+        tablespace: null,
+        hasindexes: true,
+        hasrules: false,
+        hastriggers: true,
+    },
+    {
+        tablename: "roles_users",
+        tableowner: "postgres",
+        tablespace: null,
+        hasindexes: true,
+        hasrules: false,
+        hastriggers: true,
+    },
+    {
+        tablename: "search_post_index",
+        tableowner: "postgres",
+        tablespace: null,
+        hasindexes: true,
+        hasrules: false,
+        hastriggers: true,
+    },
+    {
+        tablename: "server_place",
+        tableowner: "postgres",
+        tablespace: null,
+        hasindexes: true,
+        hasrules: false,
+        hastriggers: true,
+    },
+    {
+        tablename: "server_stand",
+        tableowner: "postgres",
+        tablespace: null,
+        hasindexes: true,
+        hasrules: false,
+        hastriggers: true,
+    },
+    {
+        tablename: "sm_list",
+        tableowner: "postgres",
+        tablespace: null,
+        hasindexes: true,
+        hasrules: false,
+        hastriggers: false,
+    },
+    {
+        tablename: "sm_url_patterns",
+        tableowner: "postgres",
+        tablespace: null,
+        hasindexes: true,
+        hasrules: false,
+        hastriggers: true,
+    },
+    {
+        tablename: "sys_sql_query",
+        tableowner: "postgres",
+        tablespace: null,
+        hasindexes: true,
+        hasrules: false,
+        hastriggers: true,
+    },
+    {
+        tablename: "sys_sql_query_audit",
+        tableowner: "postgres",
+        tablespace: null,
+        hasindexes: true,
+        hasrules: false,
+        hastriggers: true,
+    },
+    {
+        tablename: "tags",
+        tableowner: "postgres",
+        tablespace: null,
+        hasindexes: true,
+        hasrules: false,
+        hastriggers: false,
+    },
+    {
+        tablename: "terms",
+        tableowner: "postgres",
+        tablespace: null,
+        hasindexes: true,
+        hasrules: false,
+        hastriggers: true,
+    },
+    {
+        tablename: "upload_files",
+        tableowner: "postgres",
+        tablespace: null,
+        hasindexes: true,
+        hasrules: false,
+        hastriggers: true,
+    },
+    {
+        tablename: "url_resource",
+        tableowner: "postgres",
+        tablespace: null,
+        hasindexes: true,
+        hasrules: false,
+        hastriggers: true,
+    },
+    {
+        tablename: "user_access",
+        tableowner: "postgres",
+        tablespace: null,
+        hasindexes: true,
+        hasrules: false,
+        hastriggers: true,
+    },
+    {
+        tablename: "work_group",
+        tableowner: "postgres",
+        tablespace: null,
+        hasindexes: true,
+        hasrules: false,
+        hastriggers: true,
+    },
+    {
+        tablename: "work_group_employees",
+        tableowner: "postgres",
+        tablespace: null,
+        hasindexes: true,
+        hasrules: false,
+        hastriggers: false,
+    },
+    {
+        tablename: "ws_channels",
+        tableowner: "postgres",
+        tablespace: null,
+        hasindexes: true,
+        hasrules: false,
+        hastriggers: true,
+    },
+    {
+        tablename: "ws_message",
+        tableowner: "postgres",
+        tablespace: null,
+        hasindexes: true,
+        hasrules: false,
+        hastriggers: true,
+    },
+    {
+        tablename: "ws_room",
+        tableowner: "postgres",
+        tablespace: null,
+        hasindexes: true,
+        hasrules: false,
+        hastriggers: true,
+    },
+    {
+        tablename: "ws_subscribes",
+        tableowner: "postgres",
+        tablespace: null,
+        hasindexes: true,
+        hasrules: false,
+        hastriggers: true,
+    },
+];
 const ax = new BuilderXcell_1.BuilderXcell();
-ax.addCell(0, 1, "Привет");
-ax.addCell(0, 2, "Как дела");
-ax.addCell(0, 3, "Ну и что");
-ax.addCell(1, 2, "Ну и что22");
-ax.addCell(1, 3, "Ну и что22");
-ax.addCell(1, 4, "Как дела");
-ax.saveFile("test34.xlsx");
+for (let index = 0; index < json.length; index++) {
+    const object = json[index];
+    if (index === 0) {
+        let col = 0;
+        for (const key in object) {
+            ax.addCell(index, col, key);
+            col++;
+        }
+        index++;
+    }
+    let col = 0;
+    for (const key in object) {
+        if (Object.prototype.hasOwnProperty.call(object, key)) {
+            const element = object[key];
+            ax.addCell(index, col, element);
+        }
+        col++;
+    }
+}
+// ax.addCell(0, 1, "Привет");
+// ax.addCell(0, 2, "Как дела");
+// ax.addCell(0, 3, "Ну и что");
+// ax.addCell(1, 2, "Ну и что22");
+// ax.addCell(1, 3, "Ну и что22");
+// ax.addCell(1, 4, "Как дела");
+ax.saveFile("json34.xlsx");
